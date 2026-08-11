@@ -9,6 +9,6 @@ class CreateAnimeLocations < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :anime_locations, [:anime_id, :location_id], unique: true
+    add_index :anime_locations, [ :anime_id, :location_id ], unique: true
   end
 end
