@@ -1,0 +1,25 @@
+# Ignore bundler configuration.
+/.bundle
+
+# Ignore environment files containing secrets.
+/.env*
+!/.env.example
+
+# Ignore logs and temporary files.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore uploaded/local storage.
+/storage/*
+!/storage/.keep
+
+# Ignore Rails credentials key.
+/config/master.key
+
+# Ignore compiled assets.
+/public/assets
+
+# Ignore Node dependencies if used later.
+/node_modules
