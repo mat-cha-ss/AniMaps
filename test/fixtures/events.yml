@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name_ja: MyString
+  name_en: MyString
+  location: one
+  event_type: one
+  start_date: 2026-08-11
+  end_date: 2026-08-11
+  fee_note: MyText
+  official_url: MyString
+  description: MyText
+
+two:
+  name_ja: MyString
+  name_en: MyString
+  location: two
+  event_type: two
+  start_date: 2026-08-11
+  end_date: 2026-08-11
+  fee_note: MyText
+  official_url: MyString
+  description: MyText
