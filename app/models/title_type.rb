@@ -1,0 +1,2 @@
+class TitleType < ApplicationRecord
+end

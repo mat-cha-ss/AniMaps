@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prefecture: one
+  city: one
+  address_ja: MyString
+  address_en: MyString
+  latitude: 9.99
+  longitude: 9.99
+  official_url: MyString
+
+two:
+  prefecture: two
+  city: two
+  address_ja: MyString
+  address_en: MyString
+  latitude: 9.99
+  longitude: 9.99
+  official_url: MyString

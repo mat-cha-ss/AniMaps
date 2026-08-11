@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  anime: one
+  location: one
+  source_url: MyString
+  notes: MyText
+
+two:
+  anime: two
+  location: two
+  source_url: MyString
+  notes: MyText
