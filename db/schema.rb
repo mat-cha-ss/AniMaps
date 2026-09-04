@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_27_171636) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_04_070200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -150,9 +150,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_171636) do
 
   create_table "series", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "name_en"
-    t.string "name_ja"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "series_titles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "language", null: false
+    t.bigint "series_id", null: false
+    t.string "title", null: false
+    t.bigint "title_type_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["series_id", "title_type_id", "title", "language"], name: "idx_on_series_id_title_type_id_title_language_1d89f49ca2", unique: true
+    t.index ["series_id"], name: "index_series_titles_on_series_id"
+    t.index ["title_type_id"], name: "index_series_titles_on_title_type_id"
   end
 
   create_table "studios", force: :cascade do |t|
@@ -165,7 +175,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_171636) do
   create_table "title_types", force: :cascade do |t|
     t.string "code", null: false
     t.datetime "created_at", null: false
-    t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_title_types_on_code", unique: true
   end
@@ -186,4 +195,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_171636) do
   add_foreign_key "events", "locations"
   add_foreign_key "location_names", "locations"
   add_foreign_key "locations", "cities"
+  add_foreign_key "series_titles", "series"
+  add_foreign_key "series_titles", "title_types"
 end

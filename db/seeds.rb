@@ -285,3 +285,7 @@ Prefecture.find_or_create_by!(code: "47") do |type|
   type.name_ja = "沖縄県"
   type.name_en = "Okinawa"
 end
+
+if Rails.env.development?
+  load Rails.root.join("db/seeds/development.rb")
+end
