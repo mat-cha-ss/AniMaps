@@ -1,0 +1,23 @@
+<h1>Anime</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Series</th>
+      <th>Locations</th>
+      <th>Ongoing Events</th>
+      <th>Future Events</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @series.each do |series| %>
+      <tr>
+        <td><%= series.official_title("ja") %></td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

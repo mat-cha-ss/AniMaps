@@ -11,4 +11,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  get "anime", to: "series#index", as: :anime
+  get "anime/:id", to: "series#show", as: :anime_series
+
+  root "series#index"
+
 end
