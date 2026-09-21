@@ -1,0 +1,15 @@
+<%= link_to "Back", anime_path %>
+
+<h1><%= @series.official_title("ja") %></h1>
+
+<% @animes.each do |anime| %>
+  <h2><%= anime.official_title("ja") %></h2>
+
+  <ul>
+    <% anime.locations.distinct.each do |location| %>
+      <li>
+        <%= location.location_names.find_by(language: "ja")&.name %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

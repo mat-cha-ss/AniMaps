@@ -13,4 +13,10 @@ class SeriesController < ApplicationController
   def show
     @series = Series.find(params[:id])
   end
+
+  def locations
+    @series = Series.find(params[:id])
+    @animes = @series.animes.includes(:anime_titles, locations: :location_names)
+  end
+
 end

@@ -14,7 +14,12 @@
     <% @series.each do |series| %>
       <tr>
         <td><%= series.official_title("ja") %></td>
-        <td><%= series.animes.joins(:locations).distinct.count("locations.id") %></td>
+        <td>
+        <%= link_to(
+          series.animes.joins(:locations).distinct.count("locations.id"),
+          anime_series_locations_path(series)
+        ) %>
+        </td>
         <td>0</td>
         <td>0</td>
       </tr>
