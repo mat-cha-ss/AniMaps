@@ -109,6 +109,36 @@ SeriesTitle.find_or_create_by!(
   language: "en"
 )
 
+aobuta = Series.find_or_create_by!(id: 5)
+
+SeriesTitle.find_or_create_by!(
+  series: aobuta,
+  title_type: official,
+  title: "青春ブタ野郎シリーズ",
+  language: "ja"
+)
+
+SeriesTitle.find_or_create_by!(
+  series: aobuta,
+  title_type: official,
+  title: "Seishun Buta Yarou Series",
+  language: "en"
+)
+
+SeriesTitle.find_or_create_by!(
+  series: aobuta,
+  title_type: abbreviation,
+  title: "青ブタ",
+  language: "ja"
+)
+
+SeriesTitle.find_or_create_by!(
+  series: aobuta,
+  title_type: abbreviation,
+  title: "AoButa",
+  language: "en"
+)
+
 steins_gate_anime = Anime.find_or_create_by!(
   series: steins_gate,
   release_date: Date.new(2011, 4, 6),
@@ -230,6 +260,33 @@ AnimeTitle.find_or_create_by!(
   language: "en"
 )
 
+aobuta_anime = Anime.find_or_create_by!(
+  series: aobuta,
+  release_date: Date.new(2022, 10, 9),
+  description: "Aobuta television anime."
+)
+
+AnimeTitle.find_or_create_by!(
+  anime: aobuta_anime,
+  title_type: official,
+  title: "青春ブタ野郎はバニーガール先輩の夢を見ない",
+  language: "ja"
+)
+
+AnimeTitle.find_or_create_by!(
+  anime: aobuta_anime,
+  title_type: official,
+  title: "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai",
+  language: "en"
+)
+
+AnimeTitle.find_or_create_by!(
+  anime: aobuta_anime,
+  title_type: official,
+  title: "Rascal Does Not Dream of Bunny Girl Senpai",
+  language: "en"
+)
+
 oregairu_anime = Anime.find_or_create_by!(
   series: oregairu,
   release_date: Date.new(2013, 4, 5),
@@ -322,5 +379,113 @@ AnimeTitle.find_or_create_by!(
   anime: oregairu_anime3,
   title_type: alternate,
   title: "My Teen Romantic Comedy SNAFU Climax!",
+  language: "en"
+)
+
+Location.find_or_create_by!(
+  city_id: 1,
+  address_ja: "外神田1丁目",
+  address_en: "Sotokanda 1-chome",
+  latitude: 35.6983,
+  longitude: 139.7731,
+  official_url: "https://www.jreast.co.jp/e/stations/e41.html"
+)
+
+AnimeLocation.find_or_create_by!(
+  anime_id: 1,
+  location_id: 1,
+  source_url: "https://mipon.org/steins-gate-pilgrimage/"
+)
+
+LocationName.find_or_create_by!(
+  location_id: 1,
+  name: "秋葉原駅",
+  language: "ja"
+)
+
+LocationName.find_or_create_by!(
+  location_id: 1,
+  name: "Akihabara Station",
+  language: "en"
+)
+
+Location.find_or_create_by!(
+  city_id: 1,
+  address_ja: "外神田1丁目15-16",
+  address_en: "Sotokanda 1-chome 15-16",
+  latitude: 35.6978,
+  longitude: 139.7719,
+  official_url: "https://akihabara-radiokaikan.co.jp/"
+)
+
+AnimeLocation.find_or_create_by!(
+  anime_id: 1,
+  location_id: 2,
+  source_url: "https://mipon.org/steins-gate-pilgrimage/"
+)
+
+LocationName.find_or_create_by!(
+  location_id: 2,
+  name: "ラジオ会館",
+  language: "ja"
+)
+
+LocationName.find_or_create_by!(
+  location_id: 2,
+  name: "Radio Kaikan",
+  language: "en"
+)
+
+Location.find_or_create_by!(
+  city_id: 1,
+  address_ja: "北沢2丁目14-2",
+  address_en: "Kitazawa 2-chome 14-2",
+  latitude: 35.661389,
+  longitude: 139.667500,
+  official_url: "https://www.odakyu.jp/station/shimo_kitazawa/"
+)
+
+AnimeLocation.find_or_create_by!(
+  anime_id: 5,
+  location_id: 3,
+  source_url: "https://www.cdjapan.co.jp/feature/The-Real-Life-Locations-Of-Bocchi-The-Rock-Anime-Series"
+)
+
+LocationName.find_or_create_by!(
+  location_id: 3,
+  name: "下北沢駅",
+  language: "ja"
+)
+
+LocationName.find_or_create_by!(
+  location_id: 3,
+  name: "Shimokitazawa Station",
+  language: "en"
+)
+
+Location.find_or_create_by!(
+  city_id: 1,
+  address_ja: "南藤沢1-1",
+  address_en: "Minami-Fujisawa 1-1",
+  latitude: 35.33718,
+  longitude: 139.48723,
+  official_url: "https://www.enoden.co.jp/en/train/station/fujisawa/"
+)
+
+AnimeLocation.find_or_create_by!(
+  anime_id: 9,
+  location_id: 4,
+  source_url: "https://note.com/sping_travel/n/n99e627e67785?hl=en"
+)
+
+LocationName.find_or_create_by!(
+  location_id: 4,
+  name: "藤沢駅",
+  language: "ja"
+)
+
+LocationName.find_or_create_by!(
+  location_id: 4,
+  name: "Fujisawa Station",
   language: "en"
 )
