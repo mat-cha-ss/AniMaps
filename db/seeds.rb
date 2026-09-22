@@ -322,6 +322,64 @@ tokyo_wards.each do |ward|
     city.name_en = ward[:name_en]
   end
 end
+tokyo = Prefecture.find_by!(code: "13")
+
+tokyo_municipalities = [
+  # Cities
+  { name_ja: "八王子市", name_en: "Hachioji" },
+  { name_ja: "立川市", name_en: "Tachikawa" },
+  { name_ja: "武蔵野市", name_en: "Musashino" },
+  { name_ja: "三鷹市", name_en: "Mitaka" },
+  { name_ja: "青梅市", name_en: "Ome" },
+  { name_ja: "府中市", name_en: "Fuchu" },
+  { name_ja: "昭島市", name_en: "Akishima" },
+  { name_ja: "調布市", name_en: "Chofu" },
+  { name_ja: "町田市", name_en: "Machida" },
+  { name_ja: "小金井市", name_en: "Koganei" },
+  { name_ja: "小平市", name_en: "Kodaira" },
+  { name_ja: "日野市", name_en: "Hino" },
+  { name_ja: "東村山市", name_en: "Higashimurayama" },
+  { name_ja: "国分寺市", name_en: "Kokubunji" },
+  { name_ja: "国立市", name_en: "Kunitachi" },
+  { name_ja: "福生市", name_en: "Fussa" },
+  { name_ja: "狛江市", name_en: "Komae" },
+  { name_ja: "東大和市", name_en: "Higashiyamato" },
+  { name_ja: "清瀬市", name_en: "Kiyose" },
+  { name_ja: "東久留米市", name_en: "Higashikurume" },
+  { name_ja: "武蔵村山市", name_en: "Musashimurayama" },
+  { name_ja: "多摩市", name_en: "Tama" },
+  { name_ja: "稲城市", name_en: "Inagi" },
+  { name_ja: "羽村市", name_en: "Hamura" },
+  { name_ja: "あきる野市", name_en: "Akiruno" },
+  { name_ja: "西東京市", name_en: "Nishitokyo" },
+
+  # Towns
+  { name_ja: "瑞穂町", name_en: "Mizuho" },
+  { name_ja: "日の出町", name_en: "Hinode" },
+  { name_ja: "奥多摩町", name_en: "Okutama" },
+  { name_ja: "大島町", name_en: "Oshima" },
+  { name_ja: "八丈町", name_en: "Hachijo" },
+
+  # Villages
+  { name_ja: "檜原村", name_en: "Hinohara" },
+  { name_ja: "利島村", name_en: "Toshima" },
+  { name_ja: "新島村", name_en: "Niijima" },
+  { name_ja: "神津島村", name_en: "Kozushima" },
+  { name_ja: "三宅村", name_en: "Miyake" },
+  { name_ja: "御蔵島村", name_en: "Mikurajima" },
+  { name_ja: "青ヶ島村", name_en: "Aogashima" },
+  { name_ja: "小笠原村", name_en: "Ogasawara" }
+]
+
+tokyo_municipalities.each do |municipality|
+  city = City.find_or_initialize_by(
+    prefecture: tokyo,
+    name_ja: municipality[:name_ja]
+  )
+
+  city.name_en = municipality[:name_en]
+  city.save!
+end
 
 chiba = Prefecture.find_by!(code: "12")
 
