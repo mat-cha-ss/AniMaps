@@ -489,3 +489,251 @@ LocationName.find_or_create_by!(
   name: "Fujisawa Station",
   language: "en"
 )
+
+popup_shop = EventType.find_by!(code: "popup_shop")
+exhibition = EventType.find_by!(code: "exhibition")
+concert = EventType.find_by!(code: "concert")
+
+kamakura = City.find_by!(name_ja: "鎌倉市")
+tachikawa = City.find_by!(name_ja: "立川市")
+chiba = City.find_by!(name_ja: "千葉市")
+
+# Aobuta - Kamakura
+kamakura_location = Location.find_or_create_by!(
+  city: kamakura,
+  address_ja: "小町1丁目"
+) do |location|
+  location.address_en = "1-chome Komachi"
+end
+
+# Railgun - Tachikawa
+tachikawa_location = Location.find_or_create_by!(
+  city: tachikawa,
+  address_ja: "曙町2丁目"
+) do |location|
+  location.address_en = "2-chome Akebonocho"
+end
+
+# OreGairu - Chiba
+chiba_location = Location.find_or_create_by!(
+  city: chiba,
+  address_ja: "中央1丁目"
+) do |location|
+  location.address_en = "1-chome Chuo"
+end
+
+#register locations
+akihabara_location = Location.find_by!(
+  city: City.find_by!(name_ja: "千代田区"),
+  address_ja: "外神田1丁目"
+)
+
+kamakura_location = Location.find_by!(
+  city: City.find_by!(name_ja: "鎌倉市"),
+  address_ja: "小町1丁目"
+)
+
+tachikawa_location = Location.find_by!(
+  city: City.find_by!(name_ja: "立川市"),
+  address_ja: "曙町2丁目"
+)
+
+chiba_location = Location.find_by!(
+  city: City.find_by!(name_ja: "千葉市"),
+  address_ja: "中央1丁目"
+)
+
+events = [
+  # ----------------------------------------------------------
+  # Steins;Gate - Anime ID 1
+  # ----------------------------------------------------------
+  {
+    anime_id: 1,
+    event_type: popup_shop,
+    location: akihabara_location,
+    name_ja: "STEINS;GATE 秋葉原ポップアップショップ",
+    name_en: "Steins;Gate Akihabara Popup Shop",
+    start_date: Date.current - 10.days,
+    end_date: Date.current + 20.days,
+    fee_note: "入場無料",
+    description: "Development sample event for Steins;Gate."
+  },
+  {
+    anime_id: 1,
+    event_type: exhibition,
+    location: akihabara_location,
+    name_ja: "STEINS;GATE 15周年記念展",
+    name_en: "Steins;Gate 15th Anniversary Exhibition",
+    start_date: Date.current + 30.days,
+    end_date: Date.current + 50.days,
+    fee_note: "一般 1,500円",
+    description: "Development sample future event for Steins;Gate."
+  },
+
+  # ----------------------------------------------------------
+  # Railgun - Anime ID 2
+  # ----------------------------------------------------------
+  {
+    anime_id: 2,
+    event_type: exhibition,
+    location: tachikawa_location,
+    name_ja: "とある科学の超電磁砲 展示会",
+    name_en: "A Certain Scientific Railgun Exhibition",
+    start_date: Date.current - 5.days,
+    end_date: Date.current + 25.days,
+    fee_note: "一般 1,200円",
+    description: "Development sample event for Railgun."
+  },
+
+  # ----------------------------------------------------------
+  # Railgun S - Anime ID 3
+  # ----------------------------------------------------------
+  {
+    anime_id: 3,
+    event_type: popup_shop,
+    location: tachikawa_location,
+    name_ja: "とある科学の超電磁砲S ポップアップショップ",
+    name_en: "A Certain Scientific Railgun S Popup Shop",
+    start_date: Date.current + 14.days,
+    end_date: Date.current + 35.days,
+    fee_note: "入場無料",
+    description: "Development sample future event for Railgun S."
+  },
+
+  # ----------------------------------------------------------
+  # Railgun T - Anime ID 4
+  # ----------------------------------------------------------
+  {
+    anime_id: 4,
+    event_type: exhibition,
+    location: tachikawa_location,
+    name_ja: "とある科学の超電磁砲T 特別展示",
+    name_en: "A Certain Scientific Railgun T Special Exhibition",
+    start_date: Date.current - 7.days,
+    end_date: Date.current + 14.days,
+    fee_note: "一般 1,000円",
+    description: "Development sample event for Railgun T."
+  },
+
+  # ----------------------------------------------------------
+  # Bocchi the Rock! - Anime ID 5
+  # ----------------------------------------------------------
+  {
+    anime_id: 5,
+    event_type: concert,
+    location: akihabara_location,
+    name_ja: "ぼっち・ざ・ろっく！スペシャルライブ",
+    name_en: "Bocchi the Rock! Special Live",
+    start_date: Date.current + 45.days,
+    end_date: Date.current + 45.days,
+    fee_note: "全席指定 7,500円",
+    description: "Development sample concert for Bocchi the Rock!."
+  },
+  {
+    anime_id: 5,
+    event_type: popup_shop,
+    location: kamakura_location,
+    name_ja: "ぼっち・ざ・ろっく！ポップアップショップ",
+    name_en: "Bocchi the Rock! Popup Shop",
+    start_date: Date.current - 14.days,
+    end_date: Date.current + 7.days,
+    fee_note: "入場無料",
+    description: "Development sample ongoing event for Bocchi the Rock!."
+  },
+
+  # ----------------------------------------------------------
+  # OreGairu - Anime ID 6
+  # ----------------------------------------------------------
+  {
+    anime_id: 6,
+    event_type: popup_shop,
+    location: chiba_location,
+    name_ja: "俺ガイル 千葉ポップアップショップ",
+    name_en: "OreGairu Chiba Popup Shop",
+    start_date: Date.current - 8.days,
+    end_date: Date.current + 18.days,
+    fee_note: "入場無料",
+    description: "Development sample event for OreGairu."
+  },
+
+  # ----------------------------------------------------------
+  # OreGairu S2 - Anime ID 7
+  # ----------------------------------------------------------
+  {
+    anime_id: 7,
+    event_type: exhibition,
+    location: chiba_location,
+    name_ja: "俺ガイル。続 メモリアル展示会",
+    name_en: "OreGairu Zoku Memorial Exhibition",
+    start_date: Date.current + 20.days,
+    end_date: Date.current + 40.days,
+    fee_note: "一般 1,300円",
+    description: "Development sample future event for OreGairu season 2."
+  },
+
+  # ----------------------------------------------------------
+  # OreGairu S3 - Anime ID 8
+  # ----------------------------------------------------------
+  {
+    anime_id: 8,
+    event_type: exhibition,
+    location: chiba_location,
+    name_ja: "俺ガイル。完 特別展示",
+    name_en: "OreGairu Kan Special Exhibition",
+    start_date: Date.current - 12.days,
+    end_date: Date.current + 12.days,
+    fee_note: "一般 1,300円",
+    description: "Development sample ongoing event for OreGairu season 3."
+  },
+
+  # ----------------------------------------------------------
+  # Aobuta TV - Anime ID 9
+  # ----------------------------------------------------------
+  {
+    anime_id: 9,
+    event_type: popup_shop,
+    location: kamakura_location,
+    name_ja: "青春ブタ野郎シリーズ ポップアップショップ",
+    name_en: "Rascal Does Not Dream Series Popup Shop",
+    start_date: Date.current - 3.days,
+    end_date: Date.current + 21.days,
+    fee_note: "入場無料",
+    description: "Development sample ongoing event for Aobuta."
+  },
+  {
+    anime_id: 9,
+    event_type: exhibition,
+    location: kamakura_location,
+    name_ja: "青春ブタ野郎シリーズ 特別展",
+    name_en: "Rascal Does Not Dream Series Special Exhibition",
+    start_date: Date.current + 60.days,
+    end_date: Date.current + 80.days,
+    fee_note: "一般 1,500円",
+    description: "Development sample future event for Aobuta."
+  }
+]
+
+events.each do |event_data|
+  anime = Anime.find(event_data[:anime_id])
+
+  event = Event.find_or_initialize_by(
+    name_ja: event_data[:name_ja],
+    location: event_data[:location]
+  )
+
+  event.assign_attributes(
+    name_en: event_data[:name_en],
+    event_type: event_data[:event_type],
+    start_date: event_data[:start_date],
+    end_date: event_data[:end_date],
+    fee_note: event_data[:fee_note],
+    description: event_data[:description]
+  )
+
+  event.save!
+
+  AnimeEvent.find_or_create_by!(
+    anime: anime,
+    event: event
+  )
+end
