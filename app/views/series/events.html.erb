@@ -1,0 +1,24 @@
+<%= link_to "Back", anime_path %>
+
+<h1><%= @series.official_title("ja") %></h1>
+
+<% @animes.each do |anime| %>
+  <h2><%= anime.official_title("ja") %></h2>
+  <ul>
+    <% anime.events.distinct.each do |event| %>
+      <li>
+        <strong><%= event.name_ja %></strong>
+        <br>
+        <%= event.event_type.name_ja %>
+        <br>
+        <%= event.start_date %>
+        〜
+        <%= event.end_date %>
+        <% if event.fee_note.present? %>
+          <br>
+          <%= event.fee_note %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

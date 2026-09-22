@@ -5,8 +5,7 @@
     <tr>
       <th>Series</th>
       <th>Locations</th>
-      <th>Ongoing Events</th>
-      <th>Future Events</th>
+      <th>Events</th>
     </tr>
   </thead>
 
@@ -20,8 +19,12 @@
           anime_series_locations_path(series)
         ) %>
         </td>
-        <td>0</td>
-        <td>0</td>
+        <td>
+        <%= link_to(
+          series.animes.joins(:events).distinct.count("events.id"),
+          anime_series_events_path(series)
+        ) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

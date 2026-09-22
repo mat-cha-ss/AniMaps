@@ -19,4 +19,9 @@ class SeriesController < ApplicationController
     @animes = @series.animes.includes(:anime_titles, locations: :location_names)
   end
 
+  def events
+    @series = Series.find(params[:id])
+    @animes = @series.animes.includes(:anime_titles, events: [:event_type, :location])
+  end
+
 end
