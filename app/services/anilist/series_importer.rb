@@ -5,19 +5,18 @@ module Anilist
     end
 
     def call
-      anime_list = Anilist::SeriesFinder.new(mal_id: @mal_id).call
-
-      return if anime_list.empty?
-
-      ActiveRecord::Base.transaction do
+        finder = Anilist::SeriesFinder.new(mal_id: @mal_id)
+        anime_list = finder.call
+        return if anime_list.empty?
+        root_anime = finder.root_anime(anime_list)
+        ActiveRecord::Base.transaction do
         series = find_or_create_series(anime_list)
-
         anime_list.each do |anime_data|
-          import_anime(anime_data, series)
+            import_anime(anime_data, series)
         end
-
+        import_series_titles(series, root_anime)
         series
-      end
+        end
     end
 
     private
@@ -87,6 +86,45 @@ module Anilist
         date_data["month"] || 1,
         date_data["day"] || 1
       )
+    end
+
+    def import_series_titles(series, root_anime)
+        return if root_anime.nil?
+        titles = root_anime["title"]
+        add_series_title_if_missing(
+            series,
+            titles["native"],
+            "ja",
+            "official"
+        )
+        add_series_title_if_missing(
+            series,
+            titles["romaji"],
+            "en",
+            "official"
+        )
+        add_series_title_if_missing(
+            series,
+            titles["english"],
+            "en",
+            "alternate"
+        )
+    end
+
+    def add_series_title_if_missing(series, title, language, type_code)
+        return if title.blank?
+        # Don't add the same title again under another title type.
+        return if series.series_titles.exists?(
+            title: title,
+            language: language
+        )
+        title_type = TitleType.find_by!(code: type_code)
+        SeriesTitle.create!(
+            series: series,
+            title_type: title_type,
+            title: title,
+            language: language
+        )
     end
   end
 end
