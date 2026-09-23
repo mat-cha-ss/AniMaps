@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_04_070200) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_23_064615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -67,11 +67,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_070200) do
   end
 
   create_table "animes", force: :cascade do |t|
+    t.integer "anilist_id"
     t.datetime "created_at", null: false
     t.text "description"
+    t.integer "mal_id"
     t.date "release_date"
     t.bigint "series_id"
     t.datetime "updated_at", null: false
+    t.index ["anilist_id"], name: "index_animes_on_anilist_id", unique: true
+    t.index ["mal_id"], name: "index_animes_on_mal_id", unique: true
     t.index ["series_id"], name: "index_animes_on_series_id"
   end
 
