@@ -736,4 +736,20 @@ events.each do |event_data|
     anime: anime,
     event: event
   )
+
+  external_ids = {
+    1 => { mal_id: 9253,  anilist_id: 9253 },   # Steins;Gate
+    2 => { mal_id: 6213,  anilist_id: 6213 },   # Railgun
+    3 => { mal_id: 16049, anilist_id: 16049 },  # Railgun S
+    5 => { mal_id: 47917, anilist_id: 130003 }, # Bocchi the Rock!
+    6 => { mal_id: 14813, anilist_id: 14813 }   # OreGairu
+  }
+
+  external_ids.each do |anime_id, ids|
+    anime = Anime.find(anime_id)
+    anime.update!(
+      mal_id: ids[:mal_id],
+      anilist_id: ids[:anilist_id]
+    )
+  end
 end
