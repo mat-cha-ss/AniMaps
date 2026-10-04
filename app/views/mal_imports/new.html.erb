@@ -1,0 +1,20 @@
+<h1>Import MyAnimeList</h1>
+
+<p>
+  Select the XML file exported from MyAnimeList.
+  Watching and completed anime will be imported.
+  Use the following link to export your list:
+  https://myanimelist.net/panel.php?go=export
+</p>
+
+<%= form_with url: mal_import_path, method: :post, multipart: true do |form| %>
+    <div>
+      <%= form.file_field :file, accept: ".xml,text/xml,application/xml" %>
+    </div>
+    <div>
+      <%= form.submit "Import MAL XML" %>
+    </div>
+<% end %>
+<p>
+  <%= link_to "Back to Anime", anime_path %>
+</p>

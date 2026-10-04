@@ -5,6 +5,9 @@ module Anilist
   class Client
     API_URL = "https://graphql.anilist.co"
 
+    class NotFoundError < StandardError; end
+    class ApiError < StandardError; end
+
     QUERY = <<~GRAPHQL
       query ($id: Int, $malId: Int) {
         Media(id: $id, idMal: $malId, type: ANIME) {
@@ -72,7 +75,13 @@ module Anilist
 
       data = JSON.parse(response.body)
 
-      raise "AniList API error: #{data["errors"]}" if data["errors"].present?
+      if data["errors"].present?
+        not_found = data["errors"].any? do |error|
+          error["status"] == 404
+        end
+        raise NotFoundError, "AniList API returned 404 Not Found" if not_found
+        raise ApiError, "AniList API error: #{data["errors"]}"
+      end
 
       data.dig("data", "Media")
     end

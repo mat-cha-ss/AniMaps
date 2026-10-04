@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get "anime/:id/locations", to: "series#locations", as: :anime_series_locations
   get "anime/:id/events", to: "series#events", as: :anime_series_events
 
+  get "mal_import", to: "mal_imports#new", as: :mal_import
+  post "mal_import", to: "mal_imports#create"
+
   root "series#index"
 
 end
