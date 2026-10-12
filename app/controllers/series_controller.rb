@@ -4,7 +4,7 @@ class SeriesController < ApplicationController
       .joins(series_titles: :title_type)
       .includes(series_titles: :title_type)
       .where(
-        series_titles: { language: "ja" },
+        series_titles: { language: "en" },
         title_types: { code: "official" }
       )
       .order("series_titles.title")
