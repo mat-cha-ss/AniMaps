@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mal_id: 1
+  anilist_id: 1
+  title: MyString
+  anime_type: MyString
+  episodes: 1
+
+two:
+  mal_id: 1
+  anilist_id: 1
+  title: MyString
+  anime_type: MyString
+  episodes: 1

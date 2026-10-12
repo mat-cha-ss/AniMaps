@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_23_064615) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_10_064911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "anime_catalog_entries", force: :cascade do |t|
+    t.integer "anilist_id"
+    t.string "anime_type"
+    t.datetime "created_at", null: false
+    t.integer "episodes"
+    t.integer "mal_id"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["anilist_id"], name: "index_anime_catalog_entries_on_anilist_id", unique: true
+    t.index ["mal_id"], name: "index_anime_catalog_entries_on_mal_id", unique: true
+  end
 
   create_table "anime_events", force: :cascade do |t|
     t.bigint "anime_id", null: false
@@ -154,6 +166,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_064615) do
 
   create_table "series", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "grouping_status", default: "confirmed", null: false
     t.datetime "updated_at", null: false
   end
 

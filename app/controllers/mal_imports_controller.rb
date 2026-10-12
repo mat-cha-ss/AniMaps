@@ -10,26 +10,32 @@ class MalImportsController < ApplicationController
         end
         entries = Mal::XmlParser.new(file: file).call
         imported_count = 0
-        skipped_entries = []
+        missing_entries = []
+        grouped_series_ids = []
         entries.each do |entry|
-            begin
-                Anilist::AnimeCatalogResolver.new(mal_id: entry[:mal_id]).call
-                imported_count += 1
-            rescue Anilist::Client::NotFoundError
-                skipped_entries << entry
+            mal_id = entry[:mal_id]
+            #Step 1: Find or create the anime using the local catalog.
+            anime = AnimeCatalog::Resolver.new(mal_id: mal_id).call
+            unless anime
+                missing_entries << entry
+                next
             end
+            imported_count += 1
+            #Step 2: Find similar anime and assign a likely series.
+            series = AnimeCatalog::SeriesGrouper.new(mal_id: mal_id).call
+            grouped_series_ids << series.id if series
         end
+        grouped_series_ids.uniq!
 
-        redirect_to anime_path, notice: "Successfully imported #{imported_count} entries from MyAnimeList."
-        if skipped_entries.any?
-            skipped_titles = skipped_entries.map do |entry|
+        message = "Successfully imported #{imported_count} entries from MyAnimeList."
+        message += " Matched #{grouped_series_ids.size} series."
+        if missing_entries.any?
+            missing_titles = missing_entries.map do |entry|
                 "#{entry[:title]} (MAL ID: #{entry[:mal_id]})"
             end
-            message += " The following entries were skipped because they could not be found on AniList: #{skipped_titles.join(", ")}."
+            message += " The following entries were skipped because they could not be found in the local anime catalog: #{missing_titles.join(", ")}."
         end
         redirect_to anime_path, notice: message
-    rescue Anilist::Client::ApiError => e
-        redirect_to mal_import_path, alert: "AniList API error: #{e.message}"
     rescue Mal::XmlParser::InvalidXmlError => e
         redirect_to mal_import_path, alert: e.message
     end

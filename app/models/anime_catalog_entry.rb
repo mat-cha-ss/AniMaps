@@ -1,0 +1,2 @@
+class AnimeCatalogEntry < ApplicationRecord
+end
