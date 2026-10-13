@@ -13,17 +13,18 @@
 
   <tbody>
     <% @series.each do |series| %>
+      <% user_animes = series.animes.joins(:user_animes).where(user_animes: { user_id: Current.user.id }).distinct %>
       <tr>
         <td><%= series.official_title("en") %></td>
         <td>
         <%= link_to(
-          series.animes.joins(:locations).distinct.count("locations.id"),
+          user_animes.joins(:locations).distinct.count("locations.id"),
           anime_series_locations_path(series)
         ) %>
         </td>
         <td>
         <%= link_to(
-          series.animes.joins(:events).distinct.count("events.id"),
+          user_animes.joins(:events).distinct.count("events.id"),
           anime_series_events_path(series)
         ) %>
         </td>

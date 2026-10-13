@@ -20,14 +20,14 @@ module Mal
         private
 
         def parse_anime_node(anime_node)
-            status = anime_node.at_xpath("my_status")&.text
+            status = anime_node.at_xpath("my_status")&.text&.strip
             return unless ALLOWED_STATUSES.include?(status)
             mal_id = anime_node.at_xpath("series_animedb_id")&.text&.to_i
             return if mal_id.nil? || mal_id.zero?
             {
                 "mal_id": mal_id,
-                "romaji" => anime_node.at_xpath("series_title")&.text,
-                "status" => status
+                "title": anime_node.at_xpath("series_title")&.text,
+                "status": status
             }
         end
     end

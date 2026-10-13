@@ -8,6 +8,9 @@ class Anime < ApplicationRecord
   has_many :anime_events, dependent: :destroy
   has_many :events, through: :anime_events
 
+  has_many :user_animes, dependent: :destroy
+  has_many :users, through: :user_animes
+
   def official_title(language)
     anime_titles
       .joins(:title_type)

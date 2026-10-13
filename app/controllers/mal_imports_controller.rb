@@ -1,4 +1,5 @@
 class MalImportsController < ApplicationController
+    before_action :require_authentication
     def new
     end
 
@@ -24,6 +25,10 @@ class MalImportsController < ApplicationController
             #Step 2: Find similar anime and assign a likely series.
             series = AnimeCatalog::SeriesGrouper.new(mal_id: mal_id).call
             grouped_series_ids << series.id if series
+            #Step 3: Associate the anime with the logged-in user.
+            user_anime = Current.user.user_animes.find_or_initialize_by(anime_id: anime.id)
+            user_anime.status = entry[:status].downcase
+            user_anime.save!
         end
         grouped_series_ids.uniq!
 

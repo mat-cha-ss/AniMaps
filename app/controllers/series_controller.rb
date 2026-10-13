@@ -1,6 +1,8 @@
 class SeriesController < ApplicationController
+  before_action :set_series, only: [:locations, :events]
+
   def index
-    @series = Series
+    @series = Current.user.series
       .joins(series_titles: :title_type)
       .includes(series_titles: :title_type)
       .where(
@@ -10,18 +12,24 @@ class SeriesController < ApplicationController
       .order("series_titles.title")
   end
 
-  def show
-    @series = Series.find(params[:id])
-  end
-
   def locations
-    @series = Series.find(params[:id])
-    @animes = @series.animes.includes(:anime_titles, locations: :location_names)
+    set_series
+    @animes = user_animes_for_series.includes(:anime_titles, locations: :location_names)
   end
 
   def events
-    @series = Series.find(params[:id])
-    @animes = @series.animes.includes(:anime_titles, events: [:event_type, :location])
+    set_series
+    @animes = user_animes_for_series.includes(:anime_titles, events: :event_type)
   end
 
+  private
+
+  def set_series
+    #Find the series only if current user has anime in it
+    @series = Current.user.series.find(params[:id])
+  end
+
+  def user_animes_for_series
+    @series.animes.joins(:user_animes).where(user_animes: { user_id: Current.user.id }).distinct
+  end
 end

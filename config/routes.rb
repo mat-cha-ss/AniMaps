@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "anime", to: "series#index", as: :anime
-  get "anime/:id", to: "series#show", as: :anime_series
   get "anime/:id/locations", to: "series#locations", as: :anime_series_locations
   get "anime/:id/events", to: "series#events", as: :anime_series_events
 

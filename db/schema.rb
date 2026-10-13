@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_10_064911) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_12_131951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -182,6 +182,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_10_064911) do
     t.index ["title_type_id"], name: "index_series_titles_on_title_type_id"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "studios", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name_en"
@@ -194,6 +203,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_10_064911) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_title_types_on_code", unique: true
+  end
+
+  create_table "user_animes", force: :cascade do |t|
+    t.bigint "anime_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "score"
+    t.string "status", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["anime_id"], name: "index_user_animes_on_anime_id"
+    t.index ["user_id", "anime_id"], name: "index_user_animes_on_user_id_and_anime_id", unique: true
+    t.index ["user_id"], name: "index_user_animes_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address", null: false
+    t.string "password_digest", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
   add_foreign_key "anime_events", "animes"
@@ -214,4 +243,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_10_064911) do
   add_foreign_key "locations", "cities"
   add_foreign_key "series_titles", "series"
   add_foreign_key "series_titles", "title_types"
+  add_foreign_key "sessions", "users"
+  add_foreign_key "user_animes", "animes"
+  add_foreign_key "user_animes", "users"
 end
