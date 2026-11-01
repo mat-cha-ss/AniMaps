@@ -4,6 +4,7 @@ class Anime < ApplicationRecord
   has_many :anime_locations, dependent: :destroy
   has_many :anime_titles, dependent: :destroy
   has_many :locations, through: :anime_locations
+  has_many :location_candidates, dependent: :destroy
 
   has_many :anime_events, dependent: :destroy
   has_many :events, through: :anime_events

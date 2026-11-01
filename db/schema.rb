@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_12_131951) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_21_154849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -134,6 +134,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_131951) do
     t.index ["code"], name: "index_genres_on_code", unique: true
   end
 
+  create_table "location_candidates", force: :cascade do |t|
+    t.string "address_en"
+    t.string "address_ja"
+    t.bigint "anime_id", null: false
+    t.bigint "city_id"
+    t.datetime "created_at", null: false
+    t.text "evidence"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.bigint "location_id"
+    t.decimal "longitude", precision: 10, scale: 6
+    t.string "name_en"
+    t.string "name_ja"
+    t.string "source_url"
+    t.string "status", default: "pending", null: false
+    t.datetime "updated_at", null: false
+    t.index ["anime_id"], name: "index_location_candidates_on_anime_id"
+    t.index ["city_id"], name: "index_location_candidates_on_city_id"
+    t.index ["location_id"], name: "index_location_candidates_on_location_id"
+  end
+
   create_table "location_names", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "language"
@@ -239,6 +259,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_131951) do
   add_foreign_key "cities", "prefectures"
   add_foreign_key "events", "event_types"
   add_foreign_key "events", "locations"
+  add_foreign_key "location_candidates", "animes"
+  add_foreign_key "location_candidates", "cities"
+  add_foreign_key "location_candidates", "locations"
   add_foreign_key "location_names", "locations"
   add_foreign_key "locations", "cities"
   add_foreign_key "series_titles", "series"
